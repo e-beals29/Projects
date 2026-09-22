@@ -1,23 +1,62 @@
 
 /**
- * This code will take test scores and provide their average.
  * Elizabeth Beals
- * Aug 28, 2026
+ * MODIFIED Sep 21, 2026
  */
 
+import java.util.Scanner;
+
 public class Tests{ 
-    public static void main(String[] args)
-    {
-        double score1 = 95.9;
-        double score2 = 77.5;
-        double score3 = 80.2;
-        
-        double average = (score1 + score2 + score3) / 3.0;
-        
-        System.out.println("Test score 1: " + score1);
-        System.out.println("Test score 2: " + score2);
-        System.out.println("Test score 3: " + score3);
-        
-        System.out.printf("The average of 3 test scores is: %.2f%n", average);
+    private int scoreCount;
+    private double average;
+
+    // Constructor
+    public Tests() {
+        this.scoreCount = 0;
+        this.average = 0.0;
+    }
+
+    // Public getter method
+    public int getScoreCount() {
+        return this.scoreCount;
+    }
+
+    public double getAverageValue() {
+        return this.average;
+    }
+
+    // Custom method to collect scores and calculate the average
+    public void getAverage() {
+        Scanner input = new Scanner(inputSource());
+        double sum = 0.0;
+        int count = 0;
+        System.out.print("Enter a test score (-1 to quit): ");
+        double score = input.nextDouble();
+
+        // Set up your loop condition
+        while (score != -1) {
+            sum += score;
+            count++;
+            
+            System.out.print("Enter a test score (-1 to quit): ");
+            score = input.nextDouble();
+        }
+
+        this.scoreCount = count;
+        if (count == 0) {
+            this.average = Double.NaN; // Results in NaN as expected in Test 1
+        } else {
+            this.average = sum / count;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("The average of the %d scores entered is %.2f.", this.scoreCount, this.average);
+    }
+
+    // Helper method
+    private java.io.InputStream inputSource() {
+        return System.in;
     }
 }
